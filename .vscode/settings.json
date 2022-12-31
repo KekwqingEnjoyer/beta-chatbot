@@ -1,0 +1,5 @@
+{
+    "python.analysis.extraPaths": [
+        "./ChatterBot-master/build/lib/chatterbot"
+    ]
+}
