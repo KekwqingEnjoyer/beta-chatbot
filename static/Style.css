@@ -5,11 +5,17 @@ body {
 }
 
 #box2 {
-  border: solid coral;
   margin: auto;
   width: 90%;
   overflow-y: auto;
   height: 350px;
+}
+
+#box3 {
+  margin: auto;
+  width: 90%;
+  overflow-y: auto;
+  height: 200px;
 }
 
 #Logo {
@@ -20,6 +26,16 @@ body {
     border: black solid 3px;
     width: 130px;
     height: 130px;
+}
+
+#Logo2 {
+  display: block;
+  margin: auto;
+  margin-top: none;
+  border-radius: 100%;
+  border: black solid 3px;
+  width: 50px;
+  height: 50px;
 }
 
 h1 {
@@ -52,6 +68,15 @@ h1 {
     font-size: 15px;
 }
 
+/*Khung input box chat*/
+#textInput2 {
+  width: 95%;
+  text-align: left;
+  font-family: monospace;
+  font-size: 15px;
+  height: 50px;
+}
+
 /*Nút gửi*/
 #buttonInput {
     padding: 3px;
@@ -65,7 +90,7 @@ h1 {
     font-family: monospace;
     font-size: 15px;
     text-align: right;
-    margin-right: -150px;
+    margin-right: -25%;
     line-height: 35px;
     word-break: break-word;
 }
@@ -73,8 +98,8 @@ h1 {
 /*Khung bao lời nhắn người dùng*/ 
 .userText span {
     background-color: #009688;
-    padding: 10px;
-    border-radius: 2px;
+    padding: 5px;
+    border-radius: 8px;
 }
 
 /*Lời nhắn của bot*/
@@ -82,7 +107,7 @@ h1 {
     color: white;
     font-family: monospace;
     font-size: 15px;
-    margin-left: -150px;
+    margin-left: -35%;
     line-height: 35px;
     word-break: break-word;
 }
@@ -90,8 +115,43 @@ h1 {
 /*Khung bao lời nhắn của bot*/
 .botText span {
     background-color: #EF5350;
-    padding: 10px;
-    border-radius: 2px;
+    padding: 5px;
+    border-radius: 8px;
+}
+
+/*Lời nhắn người dùng box chat*/
+.userText2 {
+  color: white;
+  font-family: monospace;
+  font-size: 15px;
+  text-align: right;
+  margin-right: none;
+  line-height: 35px;
+  word-break: break-word;
+}
+
+/*Khung bao lời nhắn người dùng box chat*/ 
+.userText2 span {
+  background-color: #009688;
+  padding: 5px;
+  border-radius: 8px;
+}
+
+/*Lời nhắn của bot trong box chat*/
+.botText2 {
+  color: white;
+  font-family: monospace;
+  font-size: 15px;
+  margin-left: none;
+  line-height: 35px;
+  word-break: break-word;
+}
+
+/*Khung bao lời nhắn của bot*/
+.botText2 span {
+  background-color: #EF5350;
+  padding: 5px;
+  border-radius: 8px;
 }
 
 /*Hộp chat nhỏ */
@@ -119,7 +179,6 @@ h1 {
    right: 15px;
    border: 3px solid #f1f1f1;
    z-index: 9;
-   overflow: auto;
  }
 /* Thêm style cho form */
  .form-container {
@@ -128,7 +187,6 @@ h1 {
    max-width: 300px;
    max-height: 500px;
    resize: none;
-   overflow: auto;
  }
 /* thiết lập style textarea */
  .form-container textarea {
@@ -140,13 +198,11 @@ h1 {
    background: #f1f1f1;
    resize: none;
    min-height: 25px;
-   overflow: auto;
  }
 /*thiết lập style cho textarea khi được focus */
  .form-container textarea:focus {
    background-color: #ddd;
    outline: none;
-   overflow: auto;
  }
 /* Thiết lập style cho nút trong form*/
  .form-container .btn {

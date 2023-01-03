@@ -4,84 +4,107 @@
     <link rel="stylesheet" type="text/css" href="/static/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   </head>
-  <body>
-    <div id = "box1">
-        <img src = "static/logo-CP.jpg" alt = "logo" id = "Logo"></img>
-        <h1>Chatbot hỗ trợ thông tin về trường và tư vấn tuyển sinh</h1>
-        <div id = "box2">
-          <div id="chatbox">
-          <p class="botText"><span>Chào bạn, mình có thể giúp gì?</span></p>
+    <body>
+      <div id = "box1">
+          <img src = "static/logo-CP.jpg" alt = "logo" id = "Logo"></img>
+          <h1>Chatbot hỗ trợ thông tin về trường và tư vấn tuyển sinh</h1>
+          <div id = "box2">
+            <div id="chatbox">
+            <p class="botText"><span>Chào bạn, mình có thể giúp gì?</span></p>
+            </div>
+            <div id = "userText">
+            <p class="userText"></p>
+            </div>
           </div>
-          <div id = "userText">
-          <p class="userText"></p>
-          </div>
-        </div>
-        <div id="userInput">
-        <input id="textInput" type="text" name="msg" placeholder="Để lại lời nhắn...">
-        <input id="buttonInput" type="submit" value="Gửi">
+          <div id="userInput">
+          <input id="textInput" type="text" name="msg" placeholder="Để lại lời nhắn..." required>
+          <input id="buttonInput" type="submit" value="Gửi">
+      </div>
+      <script>
+        var rawText;
+          function getBotResponse() {
+              var userHtml = '<p class="userText"><span>' + rawText + '</span></p>';
+              $("#textInput").val("");
+              $("#chatbox").append(userHtml);
+              document.getElementById('userInput').scrollIntoView({block: 'start', behavior: 'smooth'});
+              $("#box2").scrollTop($("#box2")[0].scrollHeight);
+              $.get("/get", { msg: rawText }).done(function(data) {
+                var botHtml = '<p class="botText"><span>' + data + '</span></p>';
+                $("#chatbox").append(botHtml);
+                document.getElementById('userInput').scrollIntoView({block: 'start', behavior: 'smooth'});
+                $("#box2").scrollTop($("#box2")[0].scrollHeight);
+              });
+          }
+  
+          function emptyInputCheck(){
+            var inputCheck = $("#textInput").val().trim();
+            $("#textInput").val("");
+            if(inputCheck.length > 0){
+              rawText = inputCheck;
+              getBotResponse();
+            }
+          }
+  
+          $("#textInput").keypress(function(e) {
+              if(e.which == 13) {
+                  emptyInputCheck();
+              }
+          });
+          $("#buttonInput").click(function() {
+              emptyInputCheck();
+          })
+          
+        </script>
+      </div>
+    <button class="nut-mo-chatbox" onclick="moForm()">Chat</button>
+    <div class="Chatbox" id="myForm">
+    <form action="" class="form-container">
+    <img src = "static/logo-CP.jpg" alt = "logo" id = "Logo2"></img>
+    <div id="box3">
+      <p class="botText2"><span>Chào bạn, mình có thể giúp gì?</span></p>
     </div>
+    <input id="textInput2" placeholder="Bạn hãy nhập lời nhắn.." name="msg" required>
+    <button id="buttonInput2" type="submit" class="btn" onclick="emptyInputCheck2()">Gửi</button>
+    <button type="button" class="btn nut-dong-chatbox" onclick="dongForm()">Đóng</button>
+    </form>
     <script>
-        function getBotResponse() {
-          var rawText = $("#textInput").val();
-          var userHtml = '<p class="userText"><span>' + rawText + '</span></p>';
-          $("#textInput").val("");
-          $("#chatbox").append(userHtml);
-          document.getElementById('userInput').scrollIntoView({block: 'start', behavior: 'smooth'});
-          $.get("/get", { msg: rawText }).done(function(data) {
-            var botHtml = '<p class="botText"><span>' + data + '</span></p>';
-            $("#chatbox").append(botHtml);
-            document.getElementById('userInput').scrollIntoView({block: 'start', behavior: 'smooth'});
-          });
+      /*Hàm Mở Form*/
+      function moForm() {
+      document.getElementById("myForm").style.display = "block";
+      }
+      /*Hàm Đóng Form*/
+      function dongForm() {
+      document.getElementById("myForm").style.display = "none";
+      }
+      var rawText;
+      function getBotResponse2() {
+            var userHtml = '<p class="userText2"><span>' + rawText + '</span></p>';
+            $("#box3").append(userHtml);
+            document.getElementById('textInput2').scrollIntoView({block: 'start', behavior: 'smooth'});
+            $("#box3").scrollTop($("#box3")[0].scrollHeight);
+            $.get("/get", { msg: rawText }).done(function(data) {
+              var botHtml = '<p class="botText2"><span>' + data + '</span></p>';
+              $("#box3").append(botHtml);
+              document.getElementById('textInput2').scrollIntoView({block: 'start', behavior: 'smooth'});
+              $("#box3").scrollTop($("#box3")[0].scrollHeight);
+            });
+      }
+      function emptyInputCheck2(){
+        var inputCheck = $("#textInput2").val().trim();
+        console.log(inputCheck);
+        $("#textInput2").val("");
+        if(inputCheck.length > 0){
+          rawText = inputCheck;
+          getBotResponse2();
         }
-        function getBotResponse2() {
-          var rawText = $("#textInput2").val();
-          var userHtml = '<p class="userText"><span>' + rawText + '</span></p>';
-          $("#textInput2").val("");
-          $("#cb").append(userHtml);
-          document.getElementById('userInput').scrollIntoView({block: 'start', behavior: 'smooth'});
-          $.get("/get", { msg: rawText }).done(function(data) {
-            var botHtml = '<p class="botText"><span>' + data + '</span></p>';
-            $("#cb").append(botHtml);
-            document.getElementById('userInput').scrollIntoView({block: 'start', behavior: 'smooth'});
-          });
-        }
-        $("#textInput").keypress(function(e) {
-            if(e.which == 13) {
-                getBotResponse();
-            }
-        });
-        $("#buttonInput").click(function() {
-          getBotResponse();
-        })
-        
-      </script>
+      }
+      $("#textInput2").keypress(function(e) {
+        if(e.which == 13) {
+            emptyInputCheck2();
+          }
+      });
+    </script>
     </div>
-  <button class="nut-mo-chatbox" onclick="moForm()">Chat</button>
-  <div class="Chatbox" id="myForm">
-  <form action="" class="form-container">
-  <img src = "static/logo-CP.jpg" alt = "logo" id = "Logo"></img>
-  <div id="cb">  </div>
-  <label for="msg"><b>Lời Nhắn</b></label>
-  <textarea id="textInput2" placeholder="Bạn hãy nhập lời nhắn.." name="msg" required> </textarea>
-  <button id="buttonInput2" type="submit" class="btn" onclick="getBotResponse2()">Gửi</button>
-  <button type="button" class="btn nut-dong-chatbox" onclick="dongForm()">Đóng</button>
-  </form>
-  <script>
-    $("#textInput2").keypress(function(e) {
-            if(e.which == 13) {
-                getBotResponse2();
-            }
-        });
-
-    /*Hàm Mở Form*/
-    function moForm() {
-    document.getElementById("myForm").style.display = "block";
-    }
-    /*Hàm Đóng Form*/
-    function dongForm() {
-    document.getElementById("myForm").style.display = "none";
-    }
-  </script>
-  </div>
-  </body>
-</html>
+    </body>
+  </html>
+  
